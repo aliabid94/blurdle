@@ -10,11 +10,11 @@
     <div class="modal w-full h-full absolute">
         <div class="absolute w-full h-full flex justify-center bg-gray-900 bg-opacity-50 z-50">
             <div class="w-full h-full absolute top-0"
-                onclick="document.querySelector('.modal').remove(); document.querySelector('.guess').focus()"></div>
+                onclick="document.querySelector('.modal').remove();"></div>
             <div class="relative overflow-y-auto my-10 mx-4 p-4 bg-gray-900 border-gray-50 border rounded inline-block"
                 style="width: 50rem; max-width: 80%;">
                 <button class="absolute top-4 right-4"
-                    onclick="document.querySelector('.modal').remove(); document.querySelector('.guess').focus()">
+                    onclick="document.querySelector('.modal').remove();">
                     <img src="assets/close.svg" />
                 </button>
                 <div class="flex flex-col gap-4">
@@ -31,7 +31,7 @@
                         <img src="figure_profiles/1.jpeg" class="h-40 filter blur-sm">
                     </div>
                     <p>The figure looks vaguely familiar. You guess CHRIS TUCKER. Here's the Blurdle response.</p>
-                    <div class="mx-auto" style="width: 24rem">
+                    <div class="mx-auto" style="width: 24rem; max-width: 100%">
                         <div class="flex justify-between font-mono">
                             <div>
                                 <div class="flex justify-start text-red-400">
@@ -55,7 +55,7 @@
                     filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);">
                     </div>
                     <p>Ah you recognize the answer now. That's JACKIE CHAN!</p>
-                    <div class="mx-auto" style="width: 24rem">
+                    <div class="mx-auto" style="width: 24rem; max-width: 100%">
                         <div class="flex justify-between font-mono">
                             <div>
                                 <div class="text-green-400">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <button
-                        onclick="document.querySelector('.modal').remove(); document.querySelector('.guess').focus()"
+                        onclick="document.querySelector('.modal').remove();"
                         class="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition-colors text-2xl font-semibold">Start
                         Blurdle</button>
                 </div>
@@ -90,7 +90,7 @@
             <div style="width: 32rem; max-width: 80%;">
                 <div class="prev-guesses flex flex-col gap-4 mb-4"></div>
                 <div class="guessbox flex gap-4 mb-2">
-                    <input type="text" autofocus
+                    <input type="text"
                         class="flex-1 guess bg-gray-700 p-4 font-mono text-xl focus:outline-none rounded uppercase w-full" />
                     <button class="bg-gray-600 px-6 py-4 rounded font-semibold" onclick="check_guess()">GO</button>
                 </div>
@@ -178,7 +178,7 @@
             guess_num += 1;
             let [guessed_first, guessed_last] = guess.split(' ');
             document.querySelector(".prev-guesses").innerHTML += `
-            <div class="mx-auto" style="width: 24rem">
+            <div class="mx-auto" style="width: 24rem; max-width: 100%">
                 <div class="flex justify-between font-mono">
                     <div>
                         ${true_first === guessed_first ? `
