@@ -84,8 +84,8 @@
             <h1 class="text-5xl font-bold">Blurdle</h1>
         </header>
         <div class="flex flex-col gap-4 sm:gap-8 sm:flex-row sm:justify-center items-center mx-auto mb-4">
-            <img src="figure_profiles/3.jpeg" class="figure h-60 filter"
-                style="--tw-blur: blur(7px);
+            <img src="figure_profiles/4.webp" class="figure h-60 filter"
+                style="--tw-blur: blur(8px);
             filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);">
             <div style="width: 32rem; max-width: 80%;">
                 <div class="prev-guesses flex flex-col gap-4 mb-4"></div>
@@ -119,7 +119,7 @@
     <script>
         let alphabet = "abcdefghijklmnopqrstuvwxyz";
         let guess_num = 0;
-        let true_first = "steve";
+        let true_first = "mitt romney";
         let true_last = "jobs";
 
         var success = () => {
@@ -217,7 +217,7 @@
                 return;
             }
             document.querySelector(".blank").remove();
-            document.querySelector(".figure").style.setProperty("--tw-blur", `blur(${7 - guess_num}px)`);
+            document.querySelector(".figure").style.setProperty("--tw-blur", `blur(${8 - guess_num}px)`);
             document.querySelector(".guess").value = "";
         }
 
