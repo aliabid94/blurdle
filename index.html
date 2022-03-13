@@ -1,0 +1,232 @@
+<html class="m-0 p-0">
+
+<head>
+    <title>Blurdle</title>
+    <link rel="stylesheet" href="tailwind.min.css">
+</head>
+
+<body class="bg-gray-900 text-gray-50 relative transition-colors m-0 p-0">
+    <div class="modal w-full h-full absolute">
+        <div class="absolute w-full h-full flex justify-center bg-gray-900 bg-opacity-50 z-50">
+            <div class="w-full h-full absolute top-0"
+                onclick="document.querySelector('.modal').remove(); document.querySelector('.guess').focus()"></div>
+            <div class="relative overflow-y-auto my-10 mx-4 p-4 bg-gray-900 border-gray-50 border rounded inline-block"
+                style="width: 50rem; max-width: 80%;">
+                <button class="absolute top-4 right-4"
+                    onclick="document.querySelector('.modal').remove(); document.querySelector('.guess').focus()">
+                    <img src="assets/close.svg" />
+                </button>
+                <div class="flex flex-col gap-4">
+                    <p>Guess the famous person featured in today's Blurdle in six tries.</p>
+                    <p>You will shown a blurred image of a famous person and you will guess the first and last name of
+                        the figure presented. Your guess must be a famous person - if they don't have a
+                        Wikipedia page, they're not famous enough!</p>
+                    <p>For each guess, you will be told if the actual name is alphabetically before or after the guessed
+                        name, for both the first name and the last name. The image will also get less blurry after each
+                        guess.
+                        Take a look at the example below:</p>
+                    <hr />
+                    <div class="flex justify-center">
+                        <img src="figure_profiles/1.jpeg" class="h-40 filter blur-sm">
+                    </div>
+                    <p>The figure looks vaguely familiar. You guess CHRIS TUCKER. Here's the Blurdle response.</p>
+                    <div class="mx-auto" style="width: 24rem">
+                        <div class="flex justify-between font-mono">
+                            <div>
+                                <div class="flex justify-start text-red-400">
+                                    &rarr; Z
+                                </div>
+                                <div class="uppercase text-2xl">Chris</div>
+                            </div>
+                            <div class="uppercase">
+                                <div class="flex justify-end text-red-400">
+                                    A &larr;
+                                </div>
+                                <div class="uppercase text-2xl">Tucker</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>The red arrows mean the actual first name is later in the alphabet, and the actual last name is
+                        earlier in the alphabet. The image will get less blurry after each guess. </p>
+                    <div class="flex justify-center">
+                        <img src="figure_profiles/1.jpeg" class="h-40 filter"
+                            style="--tw-blur: blur(2px);
+                    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);">
+                    </div>
+                    <p>Ah you recognize the answer now. That's JACKIE CHAN!</p>
+                    <div class="mx-auto" style="width: 24rem">
+                        <div class="flex justify-between font-mono">
+                            <div>
+                                <div class="text-green-400">
+                                    &checkmark;
+                                </div>
+                                <div class="uppercase text-2xl">Jackie</div>
+                            </div>
+                            <div class="uppercase">
+                                <div class="text-green-400">
+                                    &checkmark;
+                                </div>
+                                <div class="uppercase text-2xl">Chan</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        onclick="document.querySelector('.modal').remove(); document.querySelector('.guess').focus()"
+                        class="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition-colors text-2xl font-semibold">Start
+                        Blurdle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main>
+        <header class="text-center p-4 my-4">
+            <h1 class="text-5xl font-bold">Blurdle</h1>
+        </header>
+        <div class="flex flex-col gap-4 sm:gap-8 sm:flex-row sm:justify-center items-center mx-auto mb-4">
+            <img src="figure_profiles/2.jpeg" class="figure h-60 filter"
+                style="--tw-blur: blur(7px);
+            filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);">
+            <div style="width: 32rem; max-width: 80%;">
+                <div class="prev-guesses flex flex-col gap-4 mb-4"></div>
+                <div class="guessbox flex gap-4 mb-2">
+                    <input type="text" autofocus
+                        class="flex-1 guess bg-gray-700 p-4 font-mono text-xl focus:outline-none rounded uppercase w-full" />
+                    <button class="bg-gray-600 px-6 py-4 rounded font-semibold" onclick="check_guess()">GO</button>
+                </div>
+                <div class="error text-red-500"></div>
+                <div
+                    class="blank flex-1 bg-gray-800 p-4 font-mono text-xl focus:outline-none rounded uppercase w-full mt-4">
+                    &nbsp;</div>
+                <div
+                    class="blank flex-1 bg-gray-800 p-4 font-mono text-xl focus:outline-none rounded uppercase w-full mt-4">
+                    &nbsp;</div>
+                <div
+                    class="blank flex-1 bg-gray-800 p-4 font-mono text-xl focus:outline-none rounded uppercase w-full mt-4">
+                    &nbsp;</div>
+                <div
+                    class="blank flex-1 bg-gray-800 p-4 font-mono text-xl focus:outline-none rounded uppercase w-full mt-4">
+                    &nbsp;</div>
+                <div
+                    class="blank flex-1 bg-gray-800 p-4 font-mono text-xl focus:outline-none rounded uppercase w-full mt-4">
+                    &nbsp;
+                </div>
+                <div class="answer hidden text-2xl mt-8">The correct answer is: <span class="uppercase"></span></div>
+                <div class="congrats hidden text-2xl mt-8">Well done!</div>
+            </div>
+        </div>
+    </main>
+    <script>
+        let alphabet = "abcdefghijklmnopqrstuvwxyz";
+        let guess_num = 0;
+        let true_first = "justin";
+        let true_last = "trudeau";
+
+        var success = () => {
+            document.querySelector(".guessbox").remove();
+            document.querySelectorAll(".blank").forEach(n => n.remove());
+            document.body.classList.remove("bg-gray-900");
+            document.body.classList.add("bg-green-800");
+            document.querySelector(".figure").style.setProperty("--tw-blur", `blur(0px)`);
+            document.querySelector(".congrats").classList.remove("hidden");
+        }
+        var failure = () => {
+            document.querySelector(".guessbox").remove();
+            document.body.classList.remove("bg-gray-900");
+            document.body.classList.add("bg-red-800");
+            document.querySelector(".figure").style.setProperty("--tw-blur", `blur(0px)`);
+            document.querySelector(".answer").classList.remove("hidden");
+            document.querySelector(".answer span").innerHTML = true_first + " " + true_last;
+        }
+
+        var error = (msg) => {
+            let error_elem = document.querySelector(".error");
+            if (msg === false) {
+                error_elem.classList.add("hidden");
+            } else {
+                error_elem.classList.remove("hidden");
+                document.querySelector(".error").innerHTML = msg;
+            }
+        }
+        var check_guess = async () => {
+            error(false);
+            let guess = document.querySelector(".guess").value.toLowerCase();
+            if (guess.length < 3 || guess.split(' ').length !== 2) {
+                error("Guess should consist of a first name and last name separated by a space.");
+                return;
+            }
+            for (let letter of guess) {
+                if (!alphabet.includes(letter) && letter !== " ") {
+                    error(`Invalid letter '${letter}'. Use only alphabet characters and a single space.`)
+                    return;
+                }
+            }
+            var wikiquery = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&origin=*&format=json&srsearch=${guess}`);
+            wikiquery = await wikiquery.json();
+            let found_on_wiki = false;
+            for (let result of wikiquery["query"]["search"]) {
+                if (result.title.toLowerCase().includes(guess)) {
+                    found_on_wiki = true;
+                    break;
+                }
+            }
+            if (!found_on_wiki) {
+                error("That's not a famous person - they don't even have a Wikipedia page!");
+                return;
+            }
+            error(false);
+            guess_num += 1;
+            let [guessed_first, guessed_last] = guess.split(' ');
+            document.querySelector(".prev-guesses").innerHTML += `
+            <div class="mx-auto" style="width: 24rem">
+                <div class="flex justify-between font-mono">
+                    <div>
+                        ${true_first === guessed_first ? `
+                        <div class="text-green-400">
+                            &checkmark;
+                        </div>` : true_first < guessed_first ? `
+                        <div class="flex text-red-400">
+                            A &larr;
+                        </div>` : `
+                        <div class="flex text-red-400">
+                            &rarr; Z
+                        </div>`}
+                        <div class="uppercase text-3xl">${guessed_first}</div>
+                    </div>
+                    <div class="uppercase">
+                        ${true_last === guessed_last ? `
+                        <div class="justify-end text-green-400">
+                            &checkmark;
+                        </div>` : true_last < guessed_last ? `
+                        <div class="flex justify-end text-red-400">
+                            A &larr;
+                        </div>` : `
+                        <div class="flex justify-end text-red-400">
+                            &rarr; Z
+                        </div>`}
+                        <div class="uppercase text-3xl">${guessed_last}</div>
+                    </div>
+                </div>
+            </div>            
+            `
+            if (guessed_first === true_first && guessed_last === true_last) {
+                success();
+            }
+            if (guess_num === 6) {
+                failure();
+                return;
+            }
+            document.querySelector(".blank").remove();
+            document.querySelector(".figure").style.setProperty("--tw-blur", `blur(${7 - guess_num}px)`);
+            document.querySelector(".guess").value = "";
+        }
+
+        document.querySelector(".guess").addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                check_guess();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
